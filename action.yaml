@@ -1,0 +1,17 @@
+name: Faiz Custom Action
+
+description: Greet someone
+
+inputs:
+  name:
+    description: The name of the person to greet
+    required: true
+    default: "Hello"
+
+runs:
+  using: node20
+  main: dist/index.js
+
+outputs:
+  time:
+    description: The time we greeted 

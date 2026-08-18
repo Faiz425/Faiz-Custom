@@ -1,0 +1,24 @@
+{
+  "name": "faiz-custom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faiz425/Faiz-Custom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Faiz425/Faiz-Custom/issues"
+  },
+  "homepage": "https://github.com/Faiz425/Faiz-Custom#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  }
+}
