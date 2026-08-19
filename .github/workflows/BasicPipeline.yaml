@@ -1,0 +1,72 @@
+name: Basic CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        description: Python version to use
+        required: true
+        default: '3.10'
+        type: choice
+        options:
+          - '3.10'
+          - '3.11'
+          - '3.9'
+
+      run-unit-tests:
+        description: Run unit tests
+        required: true
+        default: true
+        type: boolean
+
+      build-docker:
+        description: Build Docker image
+        required: true
+        default: true
+        type: boolean
+
+  pull_request:
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version || '3.10' }}
+
+      - name: Compile Python files
+        run: python -m compileall .
+
+  unit-tests:
+    if: ${{ github.event_name == 'pull_request' || inputs.run-unit-tests }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version || '3.10' }}
+
+      - name: Run unit tests
+        run: python -m unittest discover
+
+  docker-build:
+    if: ${{ github.event_name == 'pull_request' || inputs.build-docker }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Build Docker image
+        run: docker build -t faiz-custom .
+
