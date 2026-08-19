@@ -2,34 +2,20 @@ name: Faiz Manual Workflow
 
 on:
   workflow_dispatch:
-        inputs:
-            python-version:
-                description: 'Python version to use'
-                required: true
-                default: '3.11'
-                type: choice
-                options:
-                    - '3.11'
-                    - '3.10'
-                    - '3.9'
 
 jobs:
-    build:
-        
-        runs-on: ubuntu-latest
-    
-        strategy:
-            matrix:
-                python-version: ['${{github.event.inputs.python-version}}']
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
 
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                python-version: ${{ matrix.python-version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-
-
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
