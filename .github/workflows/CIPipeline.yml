@@ -36,5 +36,5 @@ jobs:
           sha=$(git rev-parse --short HEAD)
           primary_Tag="$registry/ci-cd-pipeline:${sha}"
 
-          docker build -t "$primary_Tag" -f Dockerfile .
+          docker build -t "$primary_Tag" -f docker/Dockerfile .
           docker push "$primary_Tag"
